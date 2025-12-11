@@ -36,4 +36,16 @@ class GameBoardTest {
         assertEquals(playerX, gameBoard.getCell(row, col))
     }
 
+    @Test
+    fun `when a player makes a move to an occupied cell, the move should be ignored`() {
+        val playerX = Player.X
+        val row = 0
+        val col = 0
+        val result1 = gameBoard.makeMove(row, col, playerX)
+        assert(result1)
+        val result2 = gameBoard.makeMove(row, col, Player.O)
+        assert(!result2)
+        assertEquals(playerX, gameBoard.getCell(row, col))
+    }
+
 }
