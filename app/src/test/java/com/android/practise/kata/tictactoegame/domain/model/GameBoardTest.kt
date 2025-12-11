@@ -149,4 +149,21 @@ class GameBoardTest {
         assert(!gameBoard.isGameWon())
     }
 
+    @Test
+    fun `when a player gets all cells in a diagonal, the game is won`() {
+        val moves = listOf(
+            0 to 0,
+            1 to 1,
+            2 to 2
+        )
+        for((row, col) in moves) {
+            val result = gameBoard.makeMove(row, col, Player.X)
+            assert(result)
+        }
+        assertEquals(Player.X, gameBoard.getCell(0, 0))
+        assertEquals(Player.X, gameBoard.getCell(1, 1))
+        assertEquals(Player.X, gameBoard.getCell(2, 2))
+        assert(gameBoard.isGameWon())
+    }
+
 }
