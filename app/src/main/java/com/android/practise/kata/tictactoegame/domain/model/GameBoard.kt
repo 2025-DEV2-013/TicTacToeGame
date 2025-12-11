@@ -18,6 +18,9 @@ class GameBoard {
     }
 
     fun makeMove(row: Int, col: Int, player: Player): Boolean {
+        if (row !in 0 until size || col !in 0 until size) {
+            return false
+        }
         if (board[row][col] != Player.NONE) {
             return false
         }
