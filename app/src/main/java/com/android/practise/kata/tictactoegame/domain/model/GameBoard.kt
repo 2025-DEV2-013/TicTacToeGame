@@ -10,6 +10,9 @@ class GameBoard {
 
     val size: Int = 3
 
+    var winner: Player = Player.NONE
+        private set
+
     private val board: MutableList<MutableList<Player>> =
         MutableList(size) { MutableList(size) { Player.NONE } }
 
@@ -33,6 +36,7 @@ class GameBoard {
             if(board[row][0] != Player.NONE &&
                 board[row][0] == board[row][1] &&
                 board[row][1] == board[row][2]) {
+                winner = board[row][0]
                 return true
             }
         }
@@ -40,17 +44,20 @@ class GameBoard {
             if(board[0][col] != Player.NONE &&
                 board[0][col] == board[1][col] &&
                 board[1][col] == board[2][col]) {
+                winner = board[0][col]
                 return true
             }
         }
         if(board[0][0] != Player.NONE &&
             board[0][0] == board[1][1] &&
             board[1][1] == board[2][2]) {
+            winner = board[0][0]
             return true
         }
         if(board[0][2] != Player.NONE &&
             board[0][2] == board[1][1] &&
             board[1][1] == board[2][0]) {
+            winner = board[0][2]
             return true
         }
         return false

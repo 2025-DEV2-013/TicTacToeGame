@@ -200,5 +200,18 @@ class GameBoardTest {
         assert(!gameBoard.isGameWon())
     }
 
+    @Test
+    fun `when a player wins a game, the same player should be the winner`() {
+        val moves = listOf(
+            0 to 0,
+            0 to 1,
+            0 to 2)
+        for((row, col) in moves) {
+            val result = gameBoard.makeMove(row, col, Player.X)
+            assert(result)
+        }
+        assert(gameBoard.isGameWon())
+        assertEquals(Player.X, gameBoard.winner)
+    }
 
 }
