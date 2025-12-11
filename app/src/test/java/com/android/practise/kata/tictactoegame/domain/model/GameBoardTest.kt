@@ -182,8 +182,14 @@ class GameBoardTest {
         assertEquals(Player.X, gameBoard.getCell(2, 0))
         assert(gameBoard.isGameWon())
 
-
     }
 
+    @Test
+    fun `when a player does not get all cells in a diagonal, the game is not won`() {
+        gameBoard.makeMove(0, 0, Player.X)
+        gameBoard.makeMove(0, 1, Player.X)
+        gameBoard.makeMove(0, 2, Player.O)
+        assert(!gameBoard.isGameWon())
+    }
 
 }
