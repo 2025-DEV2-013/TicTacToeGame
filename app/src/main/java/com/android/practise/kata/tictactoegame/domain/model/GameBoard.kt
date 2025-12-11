@@ -27,4 +27,15 @@ class GameBoard {
         board[row][col] = player
         return true
     }
+
+    fun isGameWon(): Boolean {
+        for(row in 0 until size) {
+            if(board[row][0] != Player.NONE &&
+                board[row][0] == board[row][1] &&
+                board[row][1] == board[row][2]) {
+                return true
+            }
+        }
+        return false
+    }
 }
