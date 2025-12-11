@@ -77,4 +77,25 @@ class GameBoardTest {
 
     }
 
+    @Test
+    fun `when all cells are filled, no more moves should be allowed`() {
+        val moves = listOf(
+            0 to 0,
+            0 to 1,
+            0 to 2,
+            1 to 0,
+            1 to 1,
+            1 to 2,
+            2 to 0,
+            2 to 2,
+            2 to 1
+        )
+        for((row, col) in moves) {
+            val result = gameBoard.makeMove(row, col, Player.X)
+            assert(result)
+        }
+        val result = gameBoard.makeMove(0, 0, Player.O)
+        assert(!result)
+    }
+
 }
