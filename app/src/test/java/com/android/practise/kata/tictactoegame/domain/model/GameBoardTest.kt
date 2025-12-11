@@ -57,4 +57,24 @@ class GameBoardTest {
         assert(!result)
     }
 
+    @Test
+    fun `when player makes move to valid cells, all moves should be recorded`() {
+        val moves = listOf(
+            0 to 0,
+            0 to 1,
+            0 to 2,
+            1 to 0,
+            1 to 1,
+            1 to 2,
+            2 to 0,
+            2 to 2,
+            2 to 1
+        )
+       for((row, col) in moves) {
+          val result = gameBoard.makeMove(row, col, Player.X)
+           assert(result)
+       }
+
+    }
+
 }
