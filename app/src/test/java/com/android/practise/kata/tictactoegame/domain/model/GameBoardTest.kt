@@ -192,4 +192,13 @@ class GameBoardTest {
         assert(!gameBoard.isGameWon())
     }
 
+    @Test
+    fun `when a player does not get all cells in a second-diagonal, the game is not won`() {
+        gameBoard.makeMove(0, 2, Player.X)
+        gameBoard.makeMove(1, 1, Player.X)
+        gameBoard.makeMove(2, 0, Player.O)
+        assert(!gameBoard.isGameWon())
+    }
+
+
 }
