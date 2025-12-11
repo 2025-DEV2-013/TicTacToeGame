@@ -230,5 +230,19 @@ class GameBoardTest {
         assertEquals(Player.NONE, gameBoard.winner)
     }
 
+    @Test
+    fun `when all cells are filled, the board should be full`(){
+        val moves = listOf(
+            Triple(0, 0, Player.X), Triple(0, 1, Player.O),
+            Triple(0, 2, Player.X), Triple(1, 0, Player.O),
+            Triple(1, 1, Player.X), Triple(1, 2, Player.O),
+            Triple(2, 0, Player.O), Triple(2, 1, Player.X),
+            Triple(2, 2, Player.O)
+        )
+        for ((row, col, player) in moves) {
+            gameBoard.makeMove(row, col, player)
+        }
+        assert(gameBoard.isBoardFull())
+    }
 
 }
