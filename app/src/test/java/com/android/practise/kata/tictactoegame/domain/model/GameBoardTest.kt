@@ -27,4 +27,13 @@ class GameBoardTest {
         }
     }
 
+    @Test
+    fun `when a player makes a move, the cell should be occupied by that player`() {
+        val playerX = Player.X
+        val row = 0
+        val col = 0
+        gameBoard.makeMove(row, col, playerX)
+        assertEquals(playerX, gameBoard.getCell(row, col))
+    }
+
 }
