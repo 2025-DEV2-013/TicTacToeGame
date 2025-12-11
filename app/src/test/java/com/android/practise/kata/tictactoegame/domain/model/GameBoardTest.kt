@@ -18,4 +18,13 @@ class GameBoardTest {
         assertEquals(3, gameBoard.size)
     }
 
+    @Test
+    fun `when game starts, all cells should be empty`() {
+        for (row in 0 until gameBoard.size) {
+            for (col in 0 until gameBoard.size) {
+                assertEquals(Player.NONE, gameBoard.getCell(row, col))
+            }
+        }
+    }
+
 }
