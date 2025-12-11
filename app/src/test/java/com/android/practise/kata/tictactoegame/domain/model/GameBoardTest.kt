@@ -133,4 +133,12 @@ class GameBoardTest {
 
     }
 
+    @Test
+    fun `when a player does not get all cells in a row, the game is not won `() {
+        gameBoard.makeMove(0, 0, Player.X)
+        gameBoard.makeMove(0, 1, Player.X)
+        gameBoard.makeMove(0, 2, Player.O)
+        assert(!gameBoard.isGameWon())
+    }
+    
 }
