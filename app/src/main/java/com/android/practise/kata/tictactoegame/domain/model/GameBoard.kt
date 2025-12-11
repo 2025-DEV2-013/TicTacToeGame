@@ -36,6 +36,13 @@ class GameBoard {
                 return true
             }
         }
+        for(col in 0 until size) {
+            if(board[0][col] != Player.NONE &&
+                board[0][col] == board[1][col] &&
+                board[1][col] == board[2][col]) {
+                return true
+            }
+        }
         return false
     }
 }

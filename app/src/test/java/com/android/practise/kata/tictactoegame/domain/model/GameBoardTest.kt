@@ -115,4 +115,22 @@ class GameBoardTest {
         assert(gameBoard.isGameWon())
     }
 
+    @Test
+    fun `when a player gets all cells in a vertical column, the game is won`() {
+        val moves = listOf(
+            0 to 0,
+            1 to 0,
+            2 to 0
+        )
+        for((row, col) in moves) {
+            val result = gameBoard.makeMove(row, col, Player.O)
+            assert(result)
+        }
+        assertEquals(Player.O, gameBoard.getCell(0, 0))
+        assertEquals(Player.O, gameBoard.getCell(1, 0))
+        assertEquals(Player.O, gameBoard.getCell(2, 0))
+        assert(gameBoard.isGameWon())
+
+    }
+
 }
