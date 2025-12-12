@@ -7,13 +7,13 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class GameStateTest {
-    private lateinit var gameState: GameState
+    private lateinit var gameState: GameStateImpl
     private lateinit var stateDomainModel: GameStateDomainModel
 
 
     @BeforeEach
     fun setUp() {
-        gameState = GameState(GameBoard())
+        gameState = GameStateImpl(GameBoard())
         stateDomainModel = gameState.state.value
     }
 
