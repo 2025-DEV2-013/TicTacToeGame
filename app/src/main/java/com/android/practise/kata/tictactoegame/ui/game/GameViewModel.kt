@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,5 +26,11 @@ class GameViewModel @Inject constructor(private val gameState: GameState) : View
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = GameUiState()
     )
+
+    fun makeMove(row : Int, col : Int) {
+        viewModelScope.launch {
+            gameState.makeMove(row, col)
+        }
+    }
 
 }
