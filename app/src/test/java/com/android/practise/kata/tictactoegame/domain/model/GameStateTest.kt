@@ -24,4 +24,10 @@ class GameStateTest {
     fun `verify initial state has domain model with default current player as X`() {
         assert(stateDomainModel.currentPlayer == Player.X)
     }
+
+    @Test
+    fun `verify initial state has domain model with default winner as NONE`() {
+        assert(stateDomainModel.winner == Player.NONE)
+
+    }
 }
