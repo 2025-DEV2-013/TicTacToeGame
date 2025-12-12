@@ -75,4 +75,21 @@ class GameStateTest {
             assertEquals(Player.O, model.currentPlayer)
         }
     }
+
+    @Test
+    fun `when a player wins a game, the winner should be updated on the game state domain model`() = runTest {
+        val moves = listOf(
+            0 to 0,
+            1 to 0,
+            0 to 1,
+            1 to 1,
+            0 to 2)
+        for((row, col) in moves) {
+            gameState.makeMove(row, col)
+        }
+        gameState.state.test {
+            val model = awaitItem()
+            assertEquals(Player.X, model.winner)
+        }
+    }
 }
