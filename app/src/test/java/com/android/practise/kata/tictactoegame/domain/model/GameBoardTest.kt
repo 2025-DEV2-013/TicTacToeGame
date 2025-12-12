@@ -260,4 +260,23 @@ class GameBoardTest {
 
     }
 
+    @Test
+    fun `when game is reset, all cells should be empty`() {
+        val moves = listOf(
+            Triple(0, 0, Player.X), Triple(0, 1, Player.O),
+            Triple(0, 2, Player.X), Triple(1, 0, Player.O),
+            Triple(1, 1, Player.X), Triple(1, 2, Player.O),
+            Triple(2, 0, Player.O), Triple(2, 1, Player.X)
+        )
+        for ((row, col, player) in moves) {
+            gameBoard.makeMove(row, col, player)
+        }
+        gameBoard.reset()
+        for (row in 0 until gameBoard.size) {
+            for (col in 0 until gameBoard.size) {
+                assertEquals(Player.NONE, gameBoard.getCell(row, col))
+            }
+        }
+    }
+
 }
