@@ -6,7 +6,7 @@ enum class Player {
     NONE
 }
 
-class GameBoard {
+internal class GameBoard {
 
     val size: Int = 3
 
