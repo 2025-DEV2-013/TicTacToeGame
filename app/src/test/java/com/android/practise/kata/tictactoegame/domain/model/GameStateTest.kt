@@ -62,4 +62,17 @@ class GameStateTest {
         }
     }
 
+    @Test
+    fun `Given multiple moves, each should receive alternate moves`() = runTest {
+        gameState.makeMove(0, 0)
+        gameState.makeMove(0, 1)
+        gameState.makeMove(0, 2)
+        gameState.state.test {
+            val model = awaitItem()
+            assertEquals(Player.X, model.board[0][0])
+            assertEquals(Player.O, model.board[0][1])
+            assertEquals(Player.X, model.board[0][2])
+            assertEquals(Player.O, model.currentPlayer)
+        }
+    }
 }
