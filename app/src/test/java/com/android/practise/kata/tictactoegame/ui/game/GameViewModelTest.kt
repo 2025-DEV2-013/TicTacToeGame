@@ -43,6 +43,13 @@ class GameViewModelTest {
         verify {mockGameState.makeMove(0, 0) }
     }
 
+    @Test
+    fun `when reset is called, gameState reset should be called`() = runTest {
+        viewModel.resetGame()
+        advanceUntilIdle()
+        verify {mockGameState.reset() }
+    }
+
 
     @AfterEach
     fun tearDown() {

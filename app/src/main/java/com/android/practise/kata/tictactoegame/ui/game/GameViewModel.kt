@@ -33,4 +33,10 @@ class GameViewModel @Inject constructor(private val gameState: GameState) : View
         }
     }
 
+    fun resetGame() {
+        viewModelScope.launch {
+            gameState.reset()
+        }
+    }
+
 }
