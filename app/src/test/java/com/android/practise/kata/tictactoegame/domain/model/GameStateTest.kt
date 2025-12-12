@@ -148,4 +148,23 @@ class GameStateTest {
             assertEquals(Player.X, model.currentPlayer)
         }
     }
+
+    @Test
+    fun `when the game is over, make move should not be allowed`() = runTest {
+        val moves = listOf(
+            0 to 0,
+            1 to 0,
+            0 to 1,
+            1 to 1,
+            0 to 2)
+        for((row, col) in moves) {
+            gameState.makeMove(row, col)
+        }
+        gameState.state.test {
+            val model = awaitItem()
+            assert(model.isGameOver)
+            val isValidMove = gameState.makeMove(0, 0)
+            assert(!isValidMove)
+        }
+    }
 }
