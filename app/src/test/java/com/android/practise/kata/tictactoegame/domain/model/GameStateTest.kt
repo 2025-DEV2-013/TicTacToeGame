@@ -92,4 +92,21 @@ class GameStateTest {
             assertEquals(Player.X, model.winner)
         }
     }
+
+    @Test
+    fun `when a player wins a game, the game should be over`() = runTest {
+        val moves = listOf(
+            0 to 0,
+            1 to 0,
+            0 to 1,
+            1 to 1,
+            0 to 2)
+        for((row, col) in moves) {
+            gameState.makeMove(row, col)
+        }
+        gameState.state.test {
+            val model = awaitItem()
+            assert(model.isGameOver)
+        }
+    }
 }
