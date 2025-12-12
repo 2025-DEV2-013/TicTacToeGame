@@ -24,7 +24,12 @@ internal class GameState @Inject constructor(val board: GameBoard) {
         val isDraw = board.isBoardFull()
         val isGameOver = isWon || isDraw
         val winner = if(isWon) currentStateModel.currentPlayer else Player.NONE
-        val nextPlayer = if(currentStateModel.currentPlayer == Player.X) Player.O else Player.X
+        val nextPlayer = if(!isGameOver){
+            if(currentStateModel.currentPlayer == Player.X) Player.O else Player.X
+        } else {
+            currentStateModel.currentPlayer
+        }
+
         _state.value = _state.value.copy(
             board = board.toDomainList(),
             currentPlayer = nextPlayer,
