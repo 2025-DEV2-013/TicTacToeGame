@@ -19,4 +19,9 @@ class GameStateTest {
         val expectedBoard = List(3) { List(3) { Player.NONE } }
         assert(stateDomainModel.board == expectedBoard)
     }
+
+    @Test
+    fun `verify initial state has domain model with default current player as X`() {
+        assert(stateDomainModel.currentPlayer == Player.X)
+    }
 }
