@@ -1,12 +1,14 @@
 package com.android.practise.kata.tictactoegame.domain.model
 
+import javax.inject.Inject
+
 enum class Player {
     X,
     O,
     NONE
 }
 
-internal class GameBoard {
+internal class GameBoard @Inject constructor() {
 
     val size: Int = 3
 

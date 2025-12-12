@@ -10,7 +10,7 @@ class GameStateTest {
 
     @BeforeEach
     fun setUp() {
-        gameState = GameState()
+        gameState = GameState(GameBoard())
         stateDomainModel = gameState.state.value
     }
 
