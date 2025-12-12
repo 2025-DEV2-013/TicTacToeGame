@@ -167,4 +167,27 @@ class GameStateTest {
             assert(!isValidMove)
         }
     }
+
+    @Test
+    fun `when all moves are made, and no player has won, the winner should be NONE`() = runTest {
+        val moves = listOf(
+            0 to 0, // X
+            0 to 1, // O
+            0 to 2, // X
+            1 to 1, // O
+            2 to 1, // X
+            1 to 2, // O
+            1 to 0, // X
+            2 to 0, // O
+            2 to 2  // X
+        )
+        for((row, col) in moves) {
+            gameState.makeMove(row, col)
+        }
+        gameState.state.test {
+            val model = awaitItem()
+            assert(model.isGameOver)
+            assertEquals(Player.NONE, model.winner)
+        }
+    }
 }
