@@ -1,5 +1,8 @@
 package com.android.practise.kata.tictactoegame.domain.model
 
+import app.cash.turbine.test
+import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -35,4 +38,17 @@ class GameStateTest {
     fun `verify initial state has domain model with isGameOver as false`(){
         assert(!stateDomainModel.isGameOver)
     }
+
+    @Test
+    fun `when a player makes a move, the board values should be updated on the game state domain model`() = runTest{
+        val row = 0
+        val col = 0
+        gameState.makeMove(row, col)
+        gameState.state.test {
+            val model = awaitItem()
+            assertEquals(Player.X, model.board[row][col])
+        }
+    }
+
+
 }

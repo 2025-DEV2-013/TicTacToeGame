@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
-internal class GameState @Inject constructor(board: GameBoard) {
+internal class GameState @Inject constructor(val board: GameBoard) {
 
     private val _state = MutableStateFlow(
         GameStateDomainModel(board.toDomainList(),
@@ -15,5 +15,17 @@ internal class GameState @Inject constructor(board: GameBoard) {
 
     val state: StateFlow<GameStateDomainModel>
         get() = _state.asStateFlow()
+
+
+    fun makeMove(row: Int, col: Int){
+        val currentStateModel = _state.value
+        board.makeMove(row, col, currentStateModel.currentPlayer)
+        _state.value = _state.value.copy(
+            board = board.toDomainList(),
+            currentPlayer = _state.value.currentPlayer,
+            winner = _state.value.winner,
+            isGameOver = _state.value.isGameOver
+        )
+    }
 
 }
