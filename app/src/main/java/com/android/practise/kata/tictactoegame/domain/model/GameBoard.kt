@@ -68,4 +68,11 @@ internal class GameBoard @Inject constructor() {
     fun isBoardFull(): Boolean {
         return board.all { row -> row.all { cell -> cell != Player.NONE } }
     }
+
+    fun reset(){
+        winner = Player.NONE
+        board.forEach { row -> row.fill(Player.NONE) }
+
+
+    }
 }

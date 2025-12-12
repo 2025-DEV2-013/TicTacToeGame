@@ -3,6 +3,7 @@ package com.android.practise.kata.tictactoegame.domain.model
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 internal class GameState @Inject constructor(val board: GameBoard) {
@@ -41,6 +42,18 @@ internal class GameState @Inject constructor(val board: GameBoard) {
         }
         return false
 
+    }
+
+    fun reset(){
+        board.reset()
+        _state.update {
+            it.copy(
+                board = board.toDomainList(),
+                currentPlayer = Player.X,
+                winner = Player.NONE,
+                isGameOver = false
+            )
+        }
     }
 
 }

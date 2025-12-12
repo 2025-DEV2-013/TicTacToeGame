@@ -190,4 +190,29 @@ class GameStateTest {
             assertEquals(Player.NONE, model.winner)
         }
     }
+
+    @Test
+    fun `when game reset is called, the game state should be reset to initial state`() = runTest {
+        val moves = listOf(
+            0 to 0,
+            1 to 0,
+            0 to 1,
+            1 to 1,
+            0 to 2)
+        for((row, col) in moves) {
+            gameState.makeMove(row, col)
+        }
+        gameState.state.test {
+            val model = awaitItem()
+            assert(model.isGameOver)
+            assertEquals(Player.X, model.winner)
+        }
+        gameState.reset()
+        gameState.state.test {
+            val model = awaitItem()
+            assert(!model.isGameOver)
+            assertEquals(Player.X, model.currentPlayer)
+            assertEquals(Player.NONE, model.winner)
+        }
+    }
 }
