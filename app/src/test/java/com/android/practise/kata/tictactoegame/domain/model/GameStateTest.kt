@@ -40,7 +40,7 @@ class GameStateTest {
     }
 
     @Test
-    fun `when a player makes a move, the board values should be updated on the game state domain model`() = runTest{
+    fun `when a player makes a move, the board values should be updated on the game state domain model`() = runTest {
         val row = 0
         val col = 0
         gameState.makeMove(row, col)
@@ -50,5 +50,16 @@ class GameStateTest {
         }
     }
 
+    // when player X makes a move, the next player should be updated as the current player (that means 'O should be the next player)
+    @Test
+    fun `when a player makes a move, the current player should be updated on the game state domain model`() = runTest {
+        val row = 0
+        val col = 0
+        gameState.makeMove(row, col) // default initial player is X
+        gameState.state.test {
+            val model = awaitItem()
+            assertEquals(Player.O, model.currentPlayer)
+        }
+    }
 
 }

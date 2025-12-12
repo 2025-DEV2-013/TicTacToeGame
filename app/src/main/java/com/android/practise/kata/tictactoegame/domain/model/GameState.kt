@@ -20,9 +20,10 @@ internal class GameState @Inject constructor(val board: GameBoard) {
     fun makeMove(row: Int, col: Int){
         val currentStateModel = _state.value
         board.makeMove(row, col, currentStateModel.currentPlayer)
+        val nextPlayer = if(currentStateModel.currentPlayer == Player.X) Player.O else Player.X
         _state.value = _state.value.copy(
             board = board.toDomainList(),
-            currentPlayer = _state.value.currentPlayer,
+            currentPlayer = nextPlayer,
             winner = _state.value.winner,
             isGameOver = _state.value.isGameOver
         )
