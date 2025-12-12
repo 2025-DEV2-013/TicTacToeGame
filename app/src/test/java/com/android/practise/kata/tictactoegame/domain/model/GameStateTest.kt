@@ -30,4 +30,9 @@ class GameStateTest {
         assert(stateDomainModel.winner == Player.NONE)
 
     }
+
+    @Test
+    fun `verify initial state has domain model with isGameOver as false`(){
+        assert(!stateDomainModel.isGameOver)
+    }
 }

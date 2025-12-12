@@ -10,7 +10,8 @@ internal class GameState @Inject constructor(board: GameBoard) {
     private val _state = MutableStateFlow(
         GameStateDomainModel(board.toDomainList(),
         Player.X,
-          Player.NONE))
+          Player.NONE,
+            isGameOver = false))
 
     val state: StateFlow<GameStateDomainModel>
         get() = _state.asStateFlow()
