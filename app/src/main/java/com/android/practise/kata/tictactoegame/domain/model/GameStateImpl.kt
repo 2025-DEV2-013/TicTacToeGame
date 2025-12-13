@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
-internal class GameStateImpl @Inject constructor(val board: GameBoard) : GameState {
+internal class GameStateImpl @Inject constructor(private val board: GameBoard) : GameState {
 
     private val _state = MutableStateFlow(
         GameStateDomainModel(board.toDomainList(),
