@@ -1,6 +1,7 @@
 package com.android.practise.kata.tictactoegame.domain.model
 
 import app.cash.turbine.test
+import com.android.practise.kata.tictactoegame.domain.model.GameConstants.BOARD_SIZE
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -19,7 +20,7 @@ class GameStateTest {
 
     @Test
     fun `verify initial state has domain model with default board values`(){
-        val expectedBoard = List(3) { List(3) { Player.NONE } }
+        val expectedBoard = List(BOARD_SIZE) { List(BOARD_SIZE) { Player.NONE } }
         assert(stateDomainModel.board == expectedBoard)
     }
 

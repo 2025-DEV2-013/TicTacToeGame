@@ -1,5 +1,6 @@
 package com.android.practise.kata.tictactoegame.domain.model
 
+import com.android.practise.kata.tictactoegame.domain.model.GameConstants.BOARD_SIZE
 import javax.inject.Inject
 
 enum class Player {
@@ -10,7 +11,8 @@ enum class Player {
 
 internal class GameBoard @Inject constructor() {
 
-    val size: Int = 3
+     private val size: Int  = BOARD_SIZE
+
 
     var winner: Player = Player.NONE
         private set

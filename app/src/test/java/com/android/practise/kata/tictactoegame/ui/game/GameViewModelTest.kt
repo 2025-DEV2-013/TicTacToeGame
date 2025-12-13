@@ -1,5 +1,7 @@
 package com.android.practise.kata.tictactoegame.ui.game
 
+import com.android.practise.kata.tictactoegame.domain.model.GameConstants
+import com.android.practise.kata.tictactoegame.domain.model.GameConstants.BOARD_SIZE
 import com.android.practise.kata.tictactoegame.domain.model.GameState
 import com.android.practise.kata.tictactoegame.domain.model.Player
 import io.mockk.mockk
@@ -31,7 +33,7 @@ class GameViewModelTest {
     @Test
     fun `verify initial state`() {
         val currentState = viewModel.state.value
-        assert(currentState.board == List(3) { List(3) { Player.NONE } })
+        assert(currentState.board == List(BOARD_SIZE) { List(BOARD_SIZE) { Player.NONE } })
         assert(currentState.currentPlayer == Player.X)
         assert(currentState.winner == Player.NONE)
     }

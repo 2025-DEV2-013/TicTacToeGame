@@ -1,5 +1,6 @@
 package com.android.practise.kata.tictactoegame.domain.model
 
+import com.android.practise.kata.tictactoegame.domain.model.GameConstants.BOARD_SIZE
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -15,13 +16,13 @@ class GameBoardTest {
 
     @Test
     fun `verify board size should be 3`() {
-        assertEquals(3, gameBoard.size)
+        assertEquals(3, BOARD_SIZE)
     }
 
     @Test
     fun `when game starts, all cells should be empty`() {
-        for (row in 0 until gameBoard.size) {
-            for (col in 0 until gameBoard.size) {
+        for (row in 0 until BOARD_SIZE) {
+            for (col in 0 until BOARD_SIZE) {
                 assertEquals(Player.NONE, gameBoard.getCell(row, col))
             }
         }
@@ -272,8 +273,8 @@ class GameBoardTest {
             gameBoard.makeMove(row, col, player)
         }
         gameBoard.reset()
-        for (row in 0 until gameBoard.size) {
-            for (col in 0 until gameBoard.size) {
+        for (row in 0 until BOARD_SIZE) {
+            for (col in 0 until BOARD_SIZE) {
                 assertEquals(Player.NONE, gameBoard.getCell(row, col))
             }
         }
