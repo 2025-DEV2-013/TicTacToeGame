@@ -9,11 +9,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.android.practise.kata.tictactoegame.ui.game.GameScreen
+import com.android.practise.kata.tictactoegame.ui.game.GameViewModel
 import com.android.practise.kata.tictactoegame.ui.theme.TicTacToeGameTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,9 +27,20 @@ class MainActivity : ComponentActivity() {
         setContent {
             TicTacToeGameTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = stringResource(id = R.string.app_name),
-                        modifier = Modifier.padding(innerPadding)
+                    val viewmodel : GameViewModel = hiltViewModel()
+                    val uiState by viewmodel.state.collectAsStateWithLifecycle()
+                    GameScreen(
+                        modifier = Modifier.padding(innerPadding),
+                        board = uiState.board,
+                        currentPlayer = uiState.currentPlayer,
+                        isGameOver = uiState.isGameOver,
+                        winner = uiState.winner,
+                        onCellClick = { row, col ->
+                            viewmodel.makeMove(row, col)
+                        },
+                        onResetGame = {
+                            viewmodel.resetGame()
+                        }
                     )
                 }
             }
