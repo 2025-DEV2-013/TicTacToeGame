@@ -1,6 +1,6 @@
 package com.android.practise.kata.tictactoegame.ui.game
 
-import com.android.practise.kata.tictactoegame.domain.model.GameConstants.BOARD_SIZE
+import com.android.practise.kata.tictactoegame.domain.model.GameBoard.Companion.BOARD_SIZE
 import com.android.practise.kata.tictactoegame.domain.model.Player
 
 data class GameUiState(

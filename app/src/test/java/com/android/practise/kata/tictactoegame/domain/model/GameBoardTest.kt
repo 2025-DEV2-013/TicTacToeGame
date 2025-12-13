@@ -1,6 +1,6 @@
 package com.android.practise.kata.tictactoegame.domain.model
 
-import com.android.practise.kata.tictactoegame.domain.model.GameConstants.BOARD_SIZE
+import com.android.practise.kata.tictactoegame.domain.model.GameBoard.Companion.BOARD_SIZE
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
