@@ -33,7 +33,7 @@ class GameViewModelTest {
     @Test
     fun `verify initial state`() {
         val currentState = viewModel.state.value
-        assert(currentState.board == List(BOARD_SIZE) { List(BOARD_SIZE) { Player.NONE } })
+        assert(currentState.board == List(BOARD_SIZE) { List(BOARD_SIZE) { CellStateUiModel.Empty } })
         assert(currentState.currentPlayer == Player.X)
         assert(currentState.winner == Player.NONE)
     }

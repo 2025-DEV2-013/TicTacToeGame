@@ -22,7 +22,7 @@ import com.android.practise.kata.tictactoegame.domain.model.Player
 @Composable
 fun GameBoard(
     modifier: Modifier = Modifier,
-    board: List<List<Player>>,
+    board: List<List<CellStateUiModel>>,
     onCellClick: (Int, Int) -> Unit
 ){
     Surface(
@@ -37,10 +37,10 @@ fun GameBoard(
         ) {
             board.forEachIndexed { rowIndex, rowItems ->
                 Row {
-                    rowItems.forEachIndexed { columnIndex, player ->
+                    rowItems.forEachIndexed { columnIndex, cellState ->
                         Cell(
                             modifier = Modifier.weight(1f),
-                            player = player,
+                            state = cellState,
                             onClick = { onCellClick(rowIndex, columnIndex) }
                         )
                     }
@@ -53,7 +53,7 @@ fun GameBoard(
 @Composable
 private fun Cell(
     modifier: Modifier = Modifier,
-    player: Player,
+    state: CellStateUiModel,
     onClick: () -> Unit
 ) {
     Box(
@@ -66,7 +66,7 @@ private fun Cell(
                 shape = RoundedCornerShape(4.dp)
             )
             .then(
-                if(player == Player.NONE) {
+                if(state == CellStateUiModel.Empty) {
                     Modifier.clickable(
                         enabled = true,
                         onClick = onClick
@@ -76,11 +76,11 @@ private fun Cell(
                 }
             ),
     ){
-        if(player != Player.NONE){
+        if(state is CellStateUiModel.Filled){
             Text(
-                text = player.name,
+                text = state.player.name,
                 style = MaterialTheme.typography.headlineMedium,
-                color = if(player == Player.X) Color.Red else Color.Blue
+                color = if(state.player == Player.X) Color.Red else Color.Blue
             )
         }
     }
@@ -92,9 +92,9 @@ private fun Cell(
 fun GameBoardPreview() {
     GameBoard(
         board = listOf(
-            listOf(Player.NONE, Player.NONE, Player.NONE),
-            listOf(Player.NONE, Player.NONE, Player.NONE),
-            listOf(Player.NONE, Player.NONE, Player.NONE)
+            listOf(CellStateUiModel.Empty,CellStateUiModel.Empty,CellStateUiModel.Empty),
+            listOf(CellStateUiModel.Empty,CellStateUiModel.Empty,CellStateUiModel.Empty),
+            listOf(CellStateUiModel.Empty,CellStateUiModel.Empty,CellStateUiModel.Empty)
         ),
         onCellClick = { _, _ -> }
     )

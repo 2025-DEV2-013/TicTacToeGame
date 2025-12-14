@@ -3,6 +3,7 @@ package com.android.practise.kata.tictactoegame.ui.game
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.practise.kata.tictactoegame.domain.model.GameState
+import com.android.practise.kata.tictactoegame.domain.model.Player
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -16,7 +17,15 @@ class GameViewModel @Inject constructor(private val gameState: GameState) : View
 
     val state : StateFlow<GameUiState> = gameState.state.map { state ->
         GameUiState(
-            board = state.board,
+            board = state.board.map { row ->
+                row.map { cell ->
+                    when(cell) {
+                        Player.NONE -> CellStateUiModel.Empty
+                        Player.X -> CellStateUiModel.Filled(Player.X)
+                        Player.O -> CellStateUiModel.Filled(Player.O)
+                    }
+                }
+            },
             currentPlayer = state.currentPlayer,
             isGameOver = state.isGameOver,
             winner = state.winner

@@ -23,7 +23,7 @@ import com.android.practise.kata.tictactoegame.domain.model.Player
 @Composable
 fun GameScreen(
     modifier: Modifier = Modifier,
-    board: List<List<Player>>,
+    board: List<List<CellStateUiModel>>,
     currentPlayer: Player,
     isGameOver: Boolean,
     winner: Player,
@@ -79,9 +79,9 @@ fun GameScreen(
 fun GameScreenPreview() {
     GameScreen(
         board = listOf(
-            listOf(Player.NONE, Player.NONE, Player.NONE),
-            listOf(Player.NONE, Player.NONE, Player.NONE),
-            listOf(Player.NONE, Player.NONE, Player.NONE)
+            listOf(CellStateUiModel.Empty,CellStateUiModel.Empty,CellStateUiModel.Empty),
+            listOf(CellStateUiModel.Empty,CellStateUiModel.Empty,CellStateUiModel.Empty),
+            listOf(CellStateUiModel.Empty,CellStateUiModel.Empty,CellStateUiModel.Empty)
         ), currentPlayer = Player.X,
         isGameOver = false,
         winner = Player.NONE, onCellClick = { _, _ -> }, onResetGame = {})
