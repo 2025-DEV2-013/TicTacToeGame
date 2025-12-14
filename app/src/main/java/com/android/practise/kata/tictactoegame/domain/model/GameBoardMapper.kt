@@ -5,8 +5,7 @@ import com.android.practise.kata.tictactoegame.domain.model.GameBoard.Companion.
 internal fun GameBoard.toDomainList(): List<List<CellState>> {
     return List(BOARD_SIZE) { row ->
         List(BOARD_SIZE) { col ->
-            if(getCell(row, col) == Player.NONE) CellState.Empty
-            else CellState.Filled(getCell(row, col))
+            getCell(row, col)
         }
     }
 }

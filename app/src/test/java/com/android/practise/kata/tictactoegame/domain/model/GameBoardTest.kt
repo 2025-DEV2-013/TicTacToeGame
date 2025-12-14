@@ -23,7 +23,7 @@ class GameBoardTest {
     fun `when game starts, all cells should be empty`() {
         for (row in 0 until BOARD_SIZE) {
             for (col in 0 until BOARD_SIZE) {
-                assertEquals(Player.NONE, gameBoard.getCell(row, col))
+                assertEquals(CellState.Empty, gameBoard.getCell(row, col))
             }
         }
     }
@@ -34,7 +34,7 @@ class GameBoardTest {
         val row = 0
         val col = 0
         gameBoard.makeMove(row, col, playerX)
-        assertEquals(playerX, gameBoard.getCell(row, col))
+        assertEquals(CellState.Filled(playerX), gameBoard.getCell(row, col))
     }
 
     @Test
@@ -46,7 +46,7 @@ class GameBoardTest {
         assert(result1)
         val result2 = gameBoard.makeMove(row, col, Player.O)
         assert(!result2)
-        assertEquals(playerX, gameBoard.getCell(row, col))
+        assertEquals(CellState.Filled(playerX), gameBoard.getCell(row, col))
     }
 
     @Test
@@ -110,9 +110,9 @@ class GameBoardTest {
             val result = gameBoard.makeMove(row, col, Player.X)
             assert(result)
         }
-        assertEquals(Player.X, gameBoard.getCell(0, 0))
-        assertEquals(Player.X, gameBoard.getCell(0, 1))
-        assertEquals(Player.X, gameBoard.getCell(0, 2))
+        assertEquals(CellState.Filled(Player.X), gameBoard.getCell(0, 0))
+        assertEquals(CellState.Filled(Player.X), gameBoard.getCell(0, 1))
+        assertEquals(CellState.Filled(Player.X), gameBoard.getCell(0, 2))
         assert(gameBoard.isGameWon())
     }
 
@@ -127,9 +127,9 @@ class GameBoardTest {
             val result = gameBoard.makeMove(row, col, Player.O)
             assert(result)
         }
-        assertEquals(Player.O, gameBoard.getCell(0, 0))
-        assertEquals(Player.O, gameBoard.getCell(1, 0))
-        assertEquals(Player.O, gameBoard.getCell(2, 0))
+        assertEquals(CellState.Filled(Player.O), gameBoard.getCell(0, 0))
+        assertEquals(CellState.Filled(Player.O), gameBoard.getCell(1, 0))
+        assertEquals(CellState.Filled(Player.O), gameBoard.getCell(2, 0))
         assert(gameBoard.isGameWon())
 
     }
@@ -161,9 +161,9 @@ class GameBoardTest {
             val result = gameBoard.makeMove(row, col, Player.X)
             assert(result)
         }
-        assertEquals(Player.X, gameBoard.getCell(0, 0))
-        assertEquals(Player.X, gameBoard.getCell(1, 1))
-        assertEquals(Player.X, gameBoard.getCell(2, 2))
+        assertEquals(CellState.Filled(Player.X), gameBoard.getCell(0, 0))
+        assertEquals(CellState.Filled(Player.X), gameBoard.getCell(1, 1))
+        assertEquals(CellState.Filled(Player.X), gameBoard.getCell(2, 2))
         assert(gameBoard.isGameWon())
     }
 
@@ -178,9 +178,9 @@ class GameBoardTest {
             val result = gameBoard.makeMove(row, col, Player.X)
             assert(result)
         }
-        assertEquals(Player.X, gameBoard.getCell(0, 2))
-        assertEquals(Player.X, gameBoard.getCell(1, 1))
-        assertEquals(Player.X, gameBoard.getCell(2, 0))
+        assertEquals(CellState.Filled(Player.X), gameBoard.getCell(0, 2))
+        assertEquals(CellState.Filled(Player.X), gameBoard.getCell(1, 1))
+        assertEquals(CellState.Filled(Player.X), gameBoard.getCell(2, 0))
         assert(gameBoard.isGameWon())
 
     }
@@ -275,7 +275,7 @@ class GameBoardTest {
         gameBoard.reset()
         for (row in 0 until BOARD_SIZE) {
             for (col in 0 until BOARD_SIZE) {
-                assertEquals(Player.NONE, gameBoard.getCell(row, col))
+                assertEquals(CellState.Empty, gameBoard.getCell(row, col))
             }
         }
     }

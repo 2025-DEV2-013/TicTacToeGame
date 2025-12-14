@@ -14,10 +14,10 @@ internal class GameBoard @Inject constructor() {
     var winner: Player = Player.NONE
         private set
 
-    private val board: MutableList<MutableList<Player>> =
-        MutableList(size) { MutableList(size) { Player.NONE } }
+    private val board: MutableList<MutableList<CellState>> =
+        MutableList(size) { MutableList(size) { CellState.Empty } }
 
-    fun getCell(row: Int, col: Int): Player {
+    fun getCell(row: Int, col: Int): CellState {
         return board[row][col]
     }
 
@@ -25,10 +25,10 @@ internal class GameBoard @Inject constructor() {
         if (row !in MIN_INDEX until size || col !in MIN_INDEX until size) {
             return false
         }
-        if (board[row][col] != Player.NONE) {
+        if (board[row][col] is CellState.Filled) {
             return false
         }
-        board[row][col] = player
+        board[row][col] = CellState.Filled(player)
         return true
     }
 
@@ -39,14 +39,14 @@ internal class GameBoard @Inject constructor() {
     private fun hasHorizontalWin(): Boolean {
         for (row in 0 until size) {
             val firstCell = board[row][0]
-            if (firstCell == Player.NONE) continue
+            if (firstCell !is CellState.Filled) continue
 
             val isWin = (1 until size).all { col ->
                 board[row][col] == firstCell
             }
 
             if (isWin) {
-                winner = firstCell
+                winner = firstCell.player
                 return true
             }
         }
@@ -56,14 +56,14 @@ internal class GameBoard @Inject constructor() {
     private fun hasVerticalWin(): Boolean {
         for (col in 0 until size) {
             val firstCell = board[0][col]
-            if (firstCell == Player.NONE) continue
+            if (firstCell !is CellState.Filled) continue
 
             val isWin = (1 until size).all { row ->
                 board[row][col] == firstCell
             }
 
             if (isWin) {
-                winner = firstCell
+                winner = firstCell.player
                 return true
             }
         }
@@ -80,12 +80,12 @@ internal class GameBoard @Inject constructor() {
 
     private fun hasAntiDiagonalWon(): Boolean {
         val topRight = board[0][size - 1]
-        if (topRight != Player.NONE) {
+        if (topRight is CellState.Filled) {
             val antiDiagonalWin = (1 until size).all { diagonalIndex ->
                 board[diagonalIndex][size - 1 - diagonalIndex] == topRight
             }
             if (antiDiagonalWin) {
-                winner = topRight
+                winner = topRight.player
                 return true
             }
         }
@@ -94,12 +94,12 @@ internal class GameBoard @Inject constructor() {
 
     private fun hasMainDiagonalWon(): Boolean {
         val topLeft = board[0][0]
-        if (topLeft != Player.NONE) {
+        if (topLeft is CellState.Filled) {
             val mainDiagonalWin = (1 until size).all { diagonalIndex ->
                 board[diagonalIndex][diagonalIndex] == topLeft
             }
             if (mainDiagonalWin) {
-                winner = topLeft
+                winner = topLeft.player
                 return true
             }
         }
@@ -107,12 +107,12 @@ internal class GameBoard @Inject constructor() {
     }
 
     fun isBoardFull(): Boolean {
-        return board.all { row -> row.all { cell -> cell != Player.NONE } }
+        return board.all { row -> row.all { cell -> cell is CellState.Filled } }
     }
 
     fun reset() {
         winner = Player.NONE
-        board.forEach { row -> row.fill(Player.NONE) }
+        board.forEach { row -> row.fill(CellState.Empty) }
 
 
     }
