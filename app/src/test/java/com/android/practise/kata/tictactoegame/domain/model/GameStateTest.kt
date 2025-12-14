@@ -20,7 +20,7 @@ class GameStateTest {
 
     @Test
     fun `verify initial state has domain model with default board values`(){
-        val expectedBoard = List(BOARD_SIZE) { List(BOARD_SIZE) { Player.NONE } }
+        val expectedBoard = List(BOARD_SIZE) { List(BOARD_SIZE) { CellState.Empty } }
         assert(stateDomainModel.board == expectedBoard)
     }
 
@@ -47,7 +47,7 @@ class GameStateTest {
         gameState.makeMove(row, col)
         gameState.state.test {
             val model = awaitItem()
-            assertEquals(Player.X, model.board[row][col])
+            assertEquals(CellState.Filled(Player.X), model.board[row][col])
         }
     }
 
@@ -70,9 +70,9 @@ class GameStateTest {
         gameState.makeMove(0, 2)
         gameState.state.test {
             val model = awaitItem()
-            assertEquals(Player.X, model.board[0][0])
-            assertEquals(Player.O, model.board[0][1])
-            assertEquals(Player.X, model.board[0][2])
+            assertEquals(CellState.Filled(Player.X), model.board[0][0])
+            assertEquals(CellState.Filled(Player.O), model.board[0][1])
+            assertEquals(CellState.Filled(Player.X), model.board[0][2])
             assertEquals(Player.O, model.currentPlayer)
         }
     }
