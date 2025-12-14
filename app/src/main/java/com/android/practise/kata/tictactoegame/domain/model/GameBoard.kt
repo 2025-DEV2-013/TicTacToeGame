@@ -11,7 +11,7 @@ internal class GameBoard @Inject constructor() {
         const val BOARD_SIZE = 3
     }
 
-    var winner: Player = Player.NONE
+    var winner: Player? = null
         private set
 
     private val board: MutableList<MutableList<CellState>> =
@@ -111,7 +111,7 @@ internal class GameBoard @Inject constructor() {
     }
 
     fun reset() {
-        winner = Player.NONE
+        winner = null
         board.forEach { row -> row.fill(CellState.Empty) }
 
 

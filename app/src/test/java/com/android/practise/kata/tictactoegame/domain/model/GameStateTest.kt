@@ -6,6 +6,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertNull
 
 class GameStateTest {
     private lateinit var gameState: GameStateImpl
@@ -30,8 +31,8 @@ class GameStateTest {
     }
 
     @Test
-    fun `verify initial state has domain model with default winner as NONE`() {
-        assert(stateDomainModel.winner == Player.NONE)
+    fun `verify initial state has domain model with default winner is NULl`() {
+        assertNull(stateDomainModel.winner)
 
     }
 
@@ -170,7 +171,7 @@ class GameStateTest {
     }
 
     @Test
-    fun `when all moves are made, and no player has won, the winner should be NONE`() = runTest {
+    fun `when all moves are made, and no player has won, the winner should be null`() = runTest {
         val moves = listOf(
             0 to 0, // X
             0 to 1, // O
@@ -188,7 +189,7 @@ class GameStateTest {
         gameState.state.test {
             val model = awaitItem()
             assert(model.isGameOver)
-            assertEquals(Player.NONE, model.winner)
+            assertNull(model.winner)
         }
     }
 
@@ -213,7 +214,7 @@ class GameStateTest {
             val model = awaitItem()
             assert(!model.isGameOver)
             assertEquals(Player.X, model.currentPlayer)
-            assertEquals(Player.NONE, model.winner)
+            assertNull(model.winner)
         }
     }
 }

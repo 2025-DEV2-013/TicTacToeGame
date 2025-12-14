@@ -16,6 +16,7 @@ import kotlinx.coroutines.test.setMain
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertNull
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class GameViewModelTest {
@@ -35,7 +36,7 @@ class GameViewModelTest {
         val currentState = viewModel.state.value
         assert(currentState.board == List(BOARD_SIZE) { List(BOARD_SIZE) { CellStateUiModel.Empty } })
         assert(currentState.currentPlayer == Player.X)
-        assert(currentState.winner == Player.NONE)
+        assertNull(currentState.winner)
     }
 
     @Test

@@ -11,7 +11,7 @@ internal class GameStateImpl @Inject constructor(private val board: GameBoard) :
     private val _state = MutableStateFlow(
         GameStateDomainModel(board.toDomainList(),
         Player.X,
-          Player.NONE,
+          null,
             isGameOver = false))
 
     override val state: StateFlow<GameStateDomainModel>
@@ -25,7 +25,7 @@ internal class GameStateImpl @Inject constructor(private val board: GameBoard) :
             val isWon = board.isGameWon()
             val isDraw = board.isBoardFull()
             val isGameOver = isWon || isDraw
-            val winner = if(isWon) currentStateModel.currentPlayer else Player.NONE
+            val winner = if(isWon) currentStateModel.currentPlayer else null
             val nextPlayer = if(!isGameOver){
                 if(currentStateModel.currentPlayer == Player.X) Player.O else Player.X
             } else {
@@ -50,7 +50,7 @@ internal class GameStateImpl @Inject constructor(private val board: GameBoard) :
             it.copy(
                 board = board.toDomainList(),
                 currentPlayer = Player.X,
-                winner = Player.NONE,
+                winner = null,
                 isGameOver = false
             )
         }

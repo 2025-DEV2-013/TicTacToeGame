@@ -26,7 +26,7 @@ fun GameScreen(
     board: List<List<CellStateUiModel>>,
     currentPlayer: Player,
     isGameOver: Boolean,
-    winner: Player,
+    winner: Player?,
     onCellClick: (Int, Int) -> Unit,
     onResetGame : () -> Unit
 ) {
@@ -40,10 +40,12 @@ fun GameScreen(
     ) {
 
         Text(
-            text = when {
-                isGameOver && winner != Player.NONE -> stringResource(R.string.player_wins, winner.name)
-                isGameOver && winner == Player.NONE -> stringResource(R.string.game_draw)
-                else -> stringResource(R.string.current_player, currentPlayer.name)
+            text = if(isGameOver) {
+                winner?.let{
+                    stringResource(R.string.player_wins, winner.name)
+                }?:stringResource(R.string.game_draw)
+            }else{
+                stringResource(R.string.current_player, currentPlayer.name)
             },
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(bottom = 16.dp)
@@ -84,5 +86,5 @@ fun GameScreenPreview() {
             listOf(CellStateUiModel.Empty,CellStateUiModel.Empty,CellStateUiModel.Empty)
         ), currentPlayer = Player.X,
         isGameOver = false,
-        winner = Player.NONE, onCellClick = { _, _ -> }, onResetGame = {})
+        winner = null, onCellClick = { _, _ -> }, onResetGame = {})
 }

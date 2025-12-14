@@ -2,6 +2,7 @@ package com.android.practise.kata.tictactoegame.domain.model
 
 import com.android.practise.kata.tictactoegame.domain.model.GameBoard.Companion.BOARD_SIZE
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -228,7 +229,7 @@ class GameBoardTest {
             gameBoard.makeMove(row, col, player)
         }
         assert(!gameBoard.isGameWon())
-        assertEquals(Player.NONE, gameBoard.winner)
+        assertNull(gameBoard.winner)
     }
 
     @Test
