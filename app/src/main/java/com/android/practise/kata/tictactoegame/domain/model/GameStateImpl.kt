@@ -22,26 +22,39 @@ internal class GameStateImpl @Inject constructor(private val board: GameBoard) :
         val currentStateModel = _state.value
         if(currentStateModel.isGameOver) return false
         if(board.makeMove(row, col, currentStateModel.currentPlayer)){
-            val isWon = board.isGameWon()
-            val isDraw = board.isBoardFull()
-            val isGameOver = isWon || isDraw
-            val winner = if(isWon) currentStateModel.currentPlayer else null
-            val nextPlayer = if(!isGameOver){
-                if(currentStateModel.currentPlayer == Player.X) Player.O else Player.X
-            } else {
-                currentStateModel.currentPlayer
-            }
+            updateGameState(currentStateModel)
+            return true
+        }
+        return false
+    }
 
-            _state.value = _state.value.copy(
+    private fun updateGameState(currentStateModel: GameStateDomainModel) {
+        val isWon = board.isGameWon()
+        val isDraw = board.isBoardFull()
+        val isGameOver = isWon || isDraw
+        val winner = if (isWon) currentStateModel.currentPlayer else null
+        val nextPlayer = identifyNextPlayer(isGameOver, currentStateModel)
+
+        _state.update {
+            it.copy(
                 board = board.toDomainList(),
                 currentPlayer = nextPlayer,
                 winner = winner,
                 isGameOver = isGameOver
             )
-            return true
         }
-        return false
+    }
 
+    private fun identifyNextPlayer(
+        isGameOver: Boolean,
+        currentStateModel: GameStateDomainModel
+    ): Player {
+        val nextPlayer = if (!isGameOver) {
+            if (currentStateModel.currentPlayer == Player.X) Player.O else Player.X
+        } else {
+            currentStateModel.currentPlayer
+        }
+        return nextPlayer
     }
 
     override fun reset(){
