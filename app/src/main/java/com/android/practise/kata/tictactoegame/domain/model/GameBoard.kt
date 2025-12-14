@@ -22,7 +22,7 @@ internal class GameBoard @Inject constructor() {
     }
 
     fun makeMove(row: Int, col: Int, player: Player): Boolean {
-        if (row !in MIN_INDEX until size || col !in MIN_INDEX until size) {
+        if (isInvalidRange(row) || isInvalidRange(col)) {
             return false
         }
         if (board[row][col] is CellState.Filled) {
@@ -32,6 +32,8 @@ internal class GameBoard @Inject constructor() {
         return true
     }
 
+    private fun isInvalidRange(rowOrCol: Int): Boolean = rowOrCol !in MIN_INDEX until size
+
     fun isGameWon(): Boolean {
         return hasHorizontalWin() || hasVerticalWin() || hasDiagonalWin()
     }
@@ -39,15 +41,15 @@ internal class GameBoard @Inject constructor() {
     private fun hasHorizontalWin(): Boolean {
         for (row in 0 until size) {
             val firstCell = board[row][0]
-            if (firstCell !is CellState.Filled) continue
+            if (firstCell is CellState.Filled){
+                val isWin = (1 until size).all { col ->
+                    board[row][col] == firstCell
+                }
 
-            val isWin = (1 until size).all { col ->
-                board[row][col] == firstCell
-            }
-
-            if (isWin) {
-                winner = firstCell.player
-                return true
+                if (isWin) {
+                    winner = firstCell.player
+                    return true
+                }
             }
         }
         return false
@@ -56,15 +58,15 @@ internal class GameBoard @Inject constructor() {
     private fun hasVerticalWin(): Boolean {
         for (col in 0 until size) {
             val firstCell = board[0][col]
-            if (firstCell !is CellState.Filled) continue
+            if (firstCell is CellState.Filled) {
+                val isWin = (1 until size).all { row ->
+                    board[row][col] == firstCell
+                }
 
-            val isWin = (1 until size).all { row ->
-                board[row][col] == firstCell
-            }
-
-            if (isWin) {
-                winner = firstCell.player
-                return true
+                if (isWin) {
+                    winner = firstCell.player
+                    return true
+                }
             }
         }
         return false
