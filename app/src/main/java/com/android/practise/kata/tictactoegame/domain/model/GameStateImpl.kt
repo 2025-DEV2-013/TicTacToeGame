@@ -48,14 +48,8 @@ internal class GameStateImpl @Inject constructor(private val board: GameBoard) :
     private fun identifyNextPlayer(
         isGameOver: Boolean,
         currentStateModel: GameStateDomainModel
-    ): Player {
-        val nextPlayer = if (!isGameOver) {
-            if (currentStateModel.currentPlayer == Player.X) Player.O else Player.X
-        } else {
-            currentStateModel.currentPlayer
-        }
-        return nextPlayer
-    }
+    ): Player = if (!isGameOver) currentStateModel.currentPlayer.next() else currentStateModel.currentPlayer
+
 
     override fun reset(){
         board.reset()
