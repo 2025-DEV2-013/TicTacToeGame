@@ -1,7 +1,7 @@
 package com.android.practise.kata.tictactoegame.ui.game
 
-import com.android.practise.kata.tictactoegame.domain.model.GameConstants
-import com.android.practise.kata.tictactoegame.domain.model.GameConstants.BOARD_SIZE
+
+import com.android.practise.kata.tictactoegame.domain.model.GameBoard.Companion.BOARD_SIZE
 import com.android.practise.kata.tictactoegame.domain.model.GameState
 import com.android.practise.kata.tictactoegame.domain.model.Player
 import io.mockk.mockk

@@ -1,6 +1,5 @@
 package com.android.practise.kata.tictactoegame.domain.model
 
-import com.android.practise.kata.tictactoegame.domain.model.GameConstants.BOARD_SIZE
 import javax.inject.Inject
 
 internal class GameBoard @Inject constructor() {
@@ -9,6 +8,7 @@ internal class GameBoard @Inject constructor() {
 
     companion object {
         private const val MIN_INDEX = 0
+        const val BOARD_SIZE = 3
     }
 
     var winner: Player = Player.NONE
